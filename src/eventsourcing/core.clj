@@ -4,6 +4,8 @@
    [eventsourcing.eventsource :as E]
    [eventsourcing.eventsource-protocol :as esp]))
 
+(def state (atom {}))
+
 (defn- log [event]
   (println (format "subscription fired: %s" event)))
 

@@ -27,18 +27,3 @@
     (handle-add-event topic event))
   (get-events [this topic]
     (handle-get-events topic)))
-
-;; (defrecord EventLog []
-;;   EventLogProtocol
-
-;;   (emit [this topic event]
-;;     (handle-emit topic event))
-
-;;   (get-events [this]
-;;     (seq @store))
-
-;;   (subscribe [this topic handler]
-;;     (handle-subscribe topic handler))
-
-;;   (unsubscribe [this topic handler]
-;;     (handle-unsubscribe topic handler)))
