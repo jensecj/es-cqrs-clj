@@ -1,6 +1,6 @@
-(ns eventsourcing.testconsumer
+(ns es-cqrs-clj.testconsumer
   (:require
-   [eventsourcing.eventlog :as es]))
+   [es-cqrs-clj.eventlog :as es]))
 
 (defn consume [event]
   (println (format "consumed %s" event)))

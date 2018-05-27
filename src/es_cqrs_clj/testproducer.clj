@@ -1,6 +1,6 @@
-(ns eventsourcing.testproducer
+(ns es-cqrs-clj.testproducer
   (:require
-   [eventsourcing.eventlog :as es]))
+   [es-cqrs-clj.eventlog :as es]))
 
 (defn produce []
   (let [store (es/->EventLog)]

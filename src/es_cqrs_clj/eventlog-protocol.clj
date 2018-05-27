@@ -1,4 +1,4 @@
-(ns eventsourcing.eventlog-protocol)
+(ns es-cqrs-clj.eventlog-protocol)
 
 (defprotocol EventLogProtocol
   "Actions that handle writing to, and reading from the event log."

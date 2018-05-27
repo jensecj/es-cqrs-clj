@@ -1,8 +1,8 @@
-(ns eventsourcing.core
+(ns es-cqrs-clj.core
   (:require
-   [eventsourcing.inmemory-eventlog :as el]
-   [eventsourcing.eventsource :as E]
-   [eventsourcing.eventsource-protocol :as esp]))
+   [es-cqrs-clj.inmemory-eventlog :as el]
+   [es-cqrs-clj.eventsource :as E]
+   [es-cqrs-clj.eventsource-protocol :as esp]))
 
 (def state (atom {}))
 

@@ -1,7 +1,7 @@
-(ns eventsourcing.eventsource
+(ns es-cqrs-clj.eventsource
   (:require
-   [eventsourcing.eventsource-protocol :as esp]
-   [eventsourcing.eventlog-protocol :as elp]))
+   [es-cqrs-clj.eventsource-protocol :as esp]
+   [es-cqrs-clj.eventlog-protocol :as elp]))
 
 (def^{:private true} handlers (atom {}))
 (reset! handlers {})

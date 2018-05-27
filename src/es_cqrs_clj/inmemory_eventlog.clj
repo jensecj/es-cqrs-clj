@@ -1,5 +1,5 @@
-(ns eventsourcing.inmemory-eventlog
-  (:require [eventsourcing.eventlog-protocol :as elp]))
+(ns es-cqrs-clj.inmemory-eventlog
+  (:require [es-cqrs-clj.eventlog-protocol :as elp]))
 
 (def^{:private true} store (atom {}))
 (reset! store {})

@@ -1,4 +1,4 @@
-(ns eventsourcing.eventsource-protocol)
+(ns es-cqrs-clj.eventsource-protocol)
 
 (defprotocol EventSourceProtocol
   "Actions that handle subscribing to topics, and fetching events"
