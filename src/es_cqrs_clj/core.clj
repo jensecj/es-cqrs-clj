@@ -1,8 +1,11 @@
 (ns es-cqrs-clj.core
   (:require
    [es-cqrs-clj.inmemory-eventlog :as el]
-   [es-cqrs-clj.eventsource :as E]
-   [es-cqrs-clj.eventsource-protocol :as esp]))
+   [es-cqrs-clj.eventsource :as es]
+   [es-cqrs-clj.eventsource-protocol :as esp]
+   [es-cqrs-clj.event-producer :as ep]
+   [es-cqrs-clj.event-consumer :as ec]
+   ))
 
 (def state (atom {}))
 
@@ -14,15 +17,20 @@
 
 (defn -main [& args]
   (let [log (el/->InMemoryEventLog)
-        source (E/->EventSource log)]
+        producer (ep/->EventProducer log)
+        consumer (ec/->EventConsumer log)]
     (println "------------------")
-    (esp/emit source :sometopic {:name "some event"})
-    (esp/subscribe source :mytopic #'log)
-    (esp/emit source :mytopic {:name "first event"})
-    (esp/emit source :mytopic {:name "second event"})
-    (esp/unsubscribe source :mytopic #'log)
-    (esp/emit source :mytopic {:name "last event"})
+    (ep/commit producer :sometopic {:name "some event"})
 
-    (println (esp/get-events source :mytopic))
+    (println (ec/get-after consumer :mytopic 0))
+
+    (ep/commit producer :mytopic {:name "first event"})
+    (ep/commit producer :mytopic {:name "second event"})
+
+    (println (ec/get-after consumer :mytopic 0))
+
+    (ep/commit producer :mytopic {:name "last event"})
+    ()
+    ;; (println (esp/get-events source :mytopic))
     )
   )
