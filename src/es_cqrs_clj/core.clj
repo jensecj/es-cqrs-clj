@@ -20,17 +20,30 @@
         producer (ep/->EventProducer log)
         consumer (ec/->EventConsumer log)]
     (println "------------------")
-    (ep/commit producer :sometopic {:name "some event"})
+    (def producer-future
+      (future (dotimes [i 20]
+                (Thread/sleep (+ 1000 (rand-int 1500)))
+                (ep/commit producer :mytopic {:name "some event"}))
+              100))
 
-    (println (ec/get-after consumer :mytopic 0))
+    (def consumer-future
+      (future
+        (let [last-event-timestamp (atom {:timestamp 0})]
+          (dotimes [i 10]
+            (Thread/sleep (+ 2500 (rand-int 2000)))
+            (let [events (ec/get-after consumer :mytopic (:timestamp @last-event-timestamp))]
+              (println (format "found %s new events!" (count events)))
+              (if (not (empty? events))
+                (do
+                  (swap! last-event-timestamp assoc :timestamp (:timestamp (first events) 0))
+                  (println (format "last seen event: %s" @last-event-timestamp))
+                  (println (map :timestamp events)))))))
+        100))
 
-    (ep/commit producer :mytopic {:name "first event"})
-    (ep/commit producer :mytopic {:name "second event"})
-
-    (println (ec/get-after consumer :mytopic 0))
-
-    (ep/commit producer :mytopic {:name "last event"})
+    (println "KILLING EXPERIMENT")
+    (Thread/sleep 30000)
+    (future-cancel producer-future)
+    (future-cancel consumer-future)
     ()
-    ;; (println (esp/get-events source :mytopic))
     )
   )
