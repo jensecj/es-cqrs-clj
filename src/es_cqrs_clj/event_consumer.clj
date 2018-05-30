@@ -1,12 +1,6 @@
 (ns es-cqrs-clj.event-consumer
   (:require
-   [es-cqrs-clj.inmemory-eventlog :as el]
-   [es-cqrs-clj.eventlog-protocol :as elp]
-   [es-cqrs-clj.eventsource :as E]
-   [es-cqrs-clj.eventsource-protocol :as esp]))
-
-(def^{:private true} local_store (atom {}))
-(reset! local_store {})
+   [es-cqrs-clj.eventlog-protocol :as elp]))
 
 (defn do-get-before [eventlog topic timestamp]
   (drop-while #(> (:timestamp %) timestamp) (elp/get-events eventlog topic)))
