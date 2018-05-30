@@ -5,7 +5,7 @@
 (reset! store {})
 
 (defn- handle-add-event [topic event]
-  (println (format "log: adding event to log: %s" event))
+  (println (format "log: committing event: %s" event))
   (swap! store update-in [topic] conj event))
 
 (defn- handle-get-events [topic]
