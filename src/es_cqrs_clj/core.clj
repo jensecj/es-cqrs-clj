@@ -1,13 +1,11 @@
 (ns es-cqrs-clj.core
   (:require
    [es-cqrs-clj.inmemory-eventlog :as el]
-   [es-cqrs-clj.eventsource :as es]
-   [es-cqrs-clj.eventsource-protocol :as esp]
    [es-cqrs-clj.event-producer :as ep]
    [es-cqrs-clj.event-consumer :as ec]
    [es-cqrs-clj.testconsumer :as tc]
-   [es-cqrs-clj.testproducer :as tp]
-   ))
+   [es-cqrs-clj.testproducer :as tp])
+  (:gen-class))
 
 (def state (atom {}))
 
@@ -30,7 +28,6 @@
 
     (future-cancel producer-future)
     (future-cancel consumer-future)
-    (println "KILLING EXPERIMENT")
-    ()
+    (println "STOPPING EXPERIMENT")
     )
   )

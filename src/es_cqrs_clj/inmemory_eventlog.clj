@@ -14,6 +14,7 @@
 
 (defrecord InMemoryEventLog []
   elp/EventLogProtocol
+
   (add-event [this topic event]
     (handle-add-event topic event))
   (get-events [this topic]
