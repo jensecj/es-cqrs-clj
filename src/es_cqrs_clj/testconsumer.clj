@@ -3,10 +3,6 @@
    [es-cqrs-clj.event-producer :as ep]
    [es-cqrs-clj.event-consumer :as ec]))
 
-;; the local state of this consumer
-(def^{:private true} state (atom {:result 0}))
-(reset! state {:result 0})
-
 (defn- step
   "Transitions from STATE to another state, based on information from EVENT."
   [state event]
@@ -21,7 +17,8 @@
   (future
     (println "-- starting consumer")
 
-    (let [last-event-timestamp (atom {:timestamp 0})]
+    (let [last-event-timestamp (atom {:timestamp 0})
+          state (atom {:result 0})]
       (while true
         ;; only poll new events once in a while
         (Thread/sleep 3000)

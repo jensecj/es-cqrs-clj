@@ -9,14 +9,8 @@
 
 (def state (atom {}))
 
-(defn- log [event]
-  (println (format "subscription fired: %s" event)))
-
-(defn- transition [state event]
-  state)
-
 (defn -main [& args]
-  (let [log (el/->InMemoryEventLog)
+  (let [log (el/->InMemoryEventLog state)
         producer (ep/->EventProducer log)
         consumer (ec/->EventConsumer log)]
     (println "------------------")
