@@ -14,9 +14,9 @@
        (take-while #(> (:timestamp %) start-timestamp))))
 
 (defprotocol EventConsumerProtocol
-  (get-before [this topic timestamp] "Get all events that have been committed before TIMESTAMP")
-  (get-after [this topic timestamp] "Get all events that have been committed after TIMESTAMP")
-  (get-between [this topic start-timestamp end-timestamp] "Get all events that have been committed between START-TIMESTAMP and END-TIMESTAMP"))
+  (get-before [this topic timestamp] "Get all events from TOPIC that have been committed before TIMESTAMP.")
+  (get-after [this topic timestamp] "Get all events from TOPIC that have been committed after TIMESTAMP.")
+  (get-between [this topic start-timestamp end-timestamp] "Get all events from TOPIC that have been committed between START-TIMESTAMP and END-TIMESTAMP."))
 
 (defrecord EventConsumer [eventlog]
   EventConsumerProtocol
